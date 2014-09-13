@@ -24,7 +24,13 @@ ListModel {
     ListElement {
         name : "Oil"
         lcolor : "brown"
-        density : 0.2
+        density : 0.5
+    }
+
+    ListElement {
+        name : "Wine"
+        lcolor : "red"
+        density : 1.2
     }
 
 }

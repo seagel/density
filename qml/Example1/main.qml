@@ -242,9 +242,9 @@ Rectangle {
     GridView {
         id: grid_view1
         x: 436
-        y: 168
+        y: 138
         width: 51
-        height: 267
+        height: 367
         cellWidth: 70
         model: Qt.createComponent("liquids.qml").createObject(null)
         delegate: Item {
