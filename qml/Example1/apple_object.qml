@@ -1,11 +1,11 @@
 import QtQuick 2.0
 
-Rectangle {
-    width: 40
-    height: 40
-    Image {
+Rectangle{
+ Image {
+        id : apple_image
         width: 40
         height: 40
-        source: "../../../build-Example1-Desktop-Debug/qml/Example1/apple.png"
-    }
+        source: "apple.png"
+        property string imageSource : "apple.png"
+ }
 }

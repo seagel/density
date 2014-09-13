@@ -13,6 +13,9 @@ int main(int argc, char *argv[])
     viewer.setPosition(QPoint(500,100));
     viewer.showExpanded();
 
+
+
+
 //    QQuickItem *object = viewer.rootObject();
 //    QObject *childObject = object->findChild<QObject*>("maincanvas");
 
