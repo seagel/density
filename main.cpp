@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     QtQuick2ApplicationViewer viewer;
     viewer.setMainQmlFile(QStringLiteral("qml/Example1/main.qml"));
-    viewer.setMaximumSize(QSize(500,500));
+    viewer.setMaximumSize(QSize(540,500));
     viewer.setPosition(QPoint(500,100));
     viewer.showExpanded();
 

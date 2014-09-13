@@ -76,6 +76,15 @@ Rectangle {
         height: 218
         opacity: 0.22
         source: "beaker.png"
+        Rectangle {
+            id : beakerArea
+            x: 36
+            y: 79
+            width: 117
+            height: 127
+
+
+        }
     }
 
     GridView {
@@ -223,6 +232,47 @@ Rectangle {
         height: 20
         text: qsTr("Mass :: ")
         font.pixelSize: 12
+    }
+
+    GridView {
+        id: grid_view1
+        x: 436
+        y: 168
+        width: 51
+        height: 267
+        cellWidth: 70
+        model: Qt.createComponent("liquids.qml").createObject(null)
+        delegate: Item {
+            x: 5
+            height: 50
+            Column {
+                spacing: 5
+                Rectangle {
+                    id : ltype
+                    width: 40
+                    height: 40
+                    color: lcolor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    signal selected()
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: ltype.selected()
+                    }
+                    onSelected: {
+                        namerecttext.text = "You selected " + name
+                        beakerArea.color = lcolor
+                    }
+                }
+
+                Text {
+                    x: 5
+                    text: name
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+            }
+        }
+        cellHeight: 70
     }
 
 
