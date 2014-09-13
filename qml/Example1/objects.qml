@@ -6,14 +6,14 @@ ListModel {
     ListElement {
         name: "Apple"
         image: "apple.png"
-        mass : 10
+        mass : 130
         volume : 125
     }
 
     ListElement {
         name: "Stone"
         image : "stone.png"
-        mass : 25
+        mass : 600
         volume : 343
     }
 

@@ -19,17 +19,36 @@ Rectangle {
             text : qsTr("")
             anchors.centerIn: parent
         }
+
     }
     DropArea {
             x: 265; y: 293
             width: 116; height: 125
-            onEntered: maincanvas.state = "IconDropped"
+            id : beakerDropArea
+
+            onDropped: {
+                drag.source.state = ""
+                var density = drag.source.objectMass / drag.source.objectVolume
+                var ldensity = beakerArea.objectDensity
+                if (ldensity > density) {
+                    namerecttext.text = "It floats !!"
+
+                } else {
+                    namerecttext.text = "It sinks !!"
+                    drag.source.sinkRate = (density/ldensity) * 1000
+                }
+
+                drag.source.state = "moved"
+
+
+            }
+
             //onEntered: maincanvas.state = Qt.new_method(1)
             Rectangle {
                 x: 0
                 y: 0
                 anchors.fill: parent
-                color: "green"
+                border.color: "green"
                 anchors.rightMargin: 0
                 anchors.bottomMargin: 0
                 anchors.leftMargin: 0
@@ -39,34 +58,6 @@ Rectangle {
 
     }
 
-//    Image {
-//        id: image1
-//        x: 22
-//        y: 104
-//        width: 39
-//        height: 39
-//        property int weight: 100
-//        property string object_name : "Stone"
-//        source: "stone-clipart-rock-outline-md.png"
-//        Drag.active: dragArea.drag.active
-
-//        Drag.hotSpot.x: 10
-//        Drag.hotSpot.y: 10
-//        MouseArea {
-//            id : dragArea
-//            anchors.fill: parent
-//            drag.target: parent
-//            onClicked: maincanvas.state = "ClickedIcon"
-//            //onDragChanged: maincanvas.state = "ClickedIcon"
-//            //onReleased: parent.Drag.drop();
-//        }
-//        Component.onCompleted: {
-//            var apple_object = Qt.createComponent("apple_object.qml")
-//            var apple = apple_object.createObject(maincanvas, {"x":100, "y":100})
-//            //image1.source = apple_object.apple_image.source
-//        }
-
-//    }
 
     Image {
         id: image2
@@ -80,10 +71,9 @@ Rectangle {
             id : beakerArea
             x: 36
             y: 79
+            property real objectDensity
             width: 117
             height: 127
-
-
         }
     }
 
@@ -107,11 +97,13 @@ Rectangle {
                      id : object_image
                      width : 40
                      height : 40
+                     x : 0
+                     y : 0
                      source : image
                      property int objectMass : mass
                      property int objectVolume : volume
                      property string objectName : name
-
+                     property real sinkRate : 100.0
                      Drag.source : object_image
                      Drag.active: dragArea.drag.active
                      signal selected(var selectedObject)
@@ -120,16 +112,29 @@ Rectangle {
                         anchors.fill: parent
                         drag.target: parent
                         onClicked: object_image.selected(name)
+                        onReleased : {
+                            console.log("Hello")
+                            parent.Drag.drop()
+                        }
 //                        onReleased: {
 //                            namerecttext.text = qsTr("You have moved a " + name)
 //                            mass_text.text = qsTr("Mass :: " +mass)
 //                        }
-
                      }
                      onSelected: {
                          namerecttext.text = qsTr("You have selected a " + name)
                      }
-                    }
+                     states: [
+
+                         State {
+                             name: "moved"
+                             PropertyChanges { target: object_image; y: y+30 }
+                         }
+                    ]
+                     transitions: Transition {
+                         NumberAnimation { duration: object_image.sinkRate; properties: "x,y"; easing.type: Easing.InOutQuad }
+                     }
+                   }
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
 
@@ -252,6 +257,8 @@ Rectangle {
                     width: 40
                     height: 40
                     color: lcolor
+                    property string objectName : name
+                    property real objectDensity : density
                     anchors.horizontalCenter: parent.horizontalCenter
                     signal selected()
                     MouseArea {
@@ -259,8 +266,9 @@ Rectangle {
                         onClicked: ltype.selected()
                     }
                     onSelected: {
-                        namerecttext.text = "You selected " + name
+                        namerecttext.text = "You selected " + name + " Of " + density + " Density"
                         beakerArea.color = lcolor
+                        beakerArea.objectDensity = density
                     }
                 }
 
@@ -293,5 +301,6 @@ Rectangle {
             }
         }
     ]
+
 }
 
