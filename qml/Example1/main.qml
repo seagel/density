@@ -32,15 +32,14 @@ Rectangle {
                 var ldensity = beakerArea.objectDensity
                 if (ldensity > density) {
                     namerecttext.text = "It floats !!"
+                    drag.source.sinkRate = (density/ldensity) * 1000
+                    drag.source.state = "float"
 
                 } else {
                     namerecttext.text = "It sinks !!"
                     drag.source.sinkRate = (density/ldensity) * 1000
+                    drag.source.state = "sink"
                 }
-
-                drag.source.state = "moved"
-
-
             }
 
             //onEntered: maincanvas.state = Qt.new_method(1)
@@ -81,8 +80,8 @@ Rectangle {
         id: objects_grid
         x: 5
         y: 111
-        width: 140
-        height: 140
+        width: 233
+        height: 95
         cellWidth: 70
         model : Qt.createComponent("objects.qml").createObject(null);
         delegate: Item {
@@ -127,15 +126,19 @@ Rectangle {
                      states: [
 
                          State {
-                             name: "moved"
-                             PropertyChanges { target: object_image; y: y+30 }
+                             name: "sink"
+                             PropertyChanges { target: object_image; y: y+40 }
+                         },
+                         State {
+                             name: "float"
+                             PropertyChanges { target: object_image; y: y-20 }
                          }
                     ]
                      transitions: Transition {
-                         NumberAnimation { duration: object_image.sinkRate; properties: "x,y"; easing.type: Easing.InOutQuad }
+                         NumberAnimation { duration: object_image.sinkRate + 200; properties: "x,y"; easing.type: Easing.InOutQuad }
                      }
                    }
-                    anchors.horizontalCenter: parent.horizontalCenter
+
                 }
 
                 Text {
@@ -159,15 +162,11 @@ Rectangle {
         height: 100
         source: "scale.png"
 
-
     }
     DropArea {
             x: 25; y: 256
             clip: true
             width: 100; height: 37
-
-
-
             //onEntered: maincanvas.state = Qt.new_method(1)
             Rectangle {
                 x: 0
@@ -177,7 +176,7 @@ Rectangle {
                 border.color: "red"
                 visible: parent.containsDrag
             }
-            onEntered: {
+            onDropped: {
                 namerecttext.text = qsTr("You have moved a " + drag.source.objectName)
                 mass_text.text = qsTr("Mass :: " + drag.source.objectMass)
 
@@ -201,7 +200,7 @@ Rectangle {
                 border.color: "red"
                 visible: parent.containsDrag
             }
-            onEntered: {
+            onDropped:  {
                 namerecttext.text = qsTr("You have moved a " + drag.source.objectName)
                 vol_text.text = qsTr("Volume :: " + drag.source.objectVolume)
 

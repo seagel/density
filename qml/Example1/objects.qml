@@ -16,6 +16,11 @@ ListModel {
         mass : 600
         volume : 343
     }
-
+    ListElement {
+        name: "Wood Board"
+        image : "wboard.jpg"
+        mass : 100
+        volume : 300
+    }
 }
 
