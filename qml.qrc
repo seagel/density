@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>QML/view/DensityWin.qml</file>
+        <file>QML/view/FormulaWin.qml</file>
+        <file>QML/view/ObjectList.qml</file>
+        <file>QML/view/LiquidTypeList.qml</file>
+        <file>QML/view/Main.qml</file>
+        <file>QML/view/ObjectCollectionWin.qml</file>
+        <file>QML/view/ObjImage.qml</file>
+        <file>QML/view/ResultsView.qml</file>
+        <file>QML/view/VolumeWin.qml</file>
+        <file>QML/view/WeightWin.qml</file>
+        <file>QML/view/images/apple-slice.png</file>
+        <file>QML/view/images/background.jpeg</file>
+        <file>QML/view/images/beaker.png</file>
+        <file>QML/view/images/coin.png</file>
+        <file>QML/view/images/cotton-ball.png</file>
+        <file>QML/view/images/egg.png</file>
+        <file>QML/view/images/gold-nugget.png</file>
+        <file>QML/view/images/golden-crown.png</file>
+        <file>QML/view/images/golf-ball.png</file>
+        <file>QML/view/images/graduated_cylinder.png</file>
+        <file>QML/view/images/iron-ball.png</file>
+        <file>QML/view/images/pingpong-ball.png</file>
+        <file>QML/view/images/weighing_scale1.png</file>
+        <file>QML/view/images/wooden-block.png</file>
+        <file>main.cpp</file>
+    </qresource>
+</RCC>
