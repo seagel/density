@@ -10,10 +10,25 @@ Item {
 
     TableView {
        anchors.fill : resultsTable
-       TableViewColumn{ role: "objectName"  ; title: "Object Name" ; width: resultsTable.width/4 }
+
+       TableViewColumn{ role: "objectName"  ; title: "Object Name" ; width: resultsTable.width/4; }
        TableViewColumn{ role: "liquidType" ; title: "Liquid Type" ; width: resultsTable.width/4 }
        TableViewColumn{ role: "liquidDensity" ; title: "Liquid Density" ; width: resultsTable.width/4 }
-       TableViewColumn{ role: "observation" ; title: "Observation" ; width: resultsTable.width/4 }
+       TableViewColumn{
+           role: "observation"
+           title: "Observation"
+           width: resultsTable.width/4
+            delegate: Item {
+                ComboBox{
+                    anchors.verticalCenter: parent.verticalCenter
+                    model: ListModel{
+                        ListElement {text: "Select"}
+                        ListElement{ text: "Sinks"}
+                        ListElement{ text: "Floats"}
+                    }
+                }
+            }
+       }
        model: resultsModel
     }
 

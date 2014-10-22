@@ -3,8 +3,8 @@ import QtQuick.Controls 1.2
 
 Item {
         id : densityWin
-        width: densityWin.width
-        height: densityWin.height
+        //width: densityWin.width
+        //height: densityWin.height
         property ObjImage droppedObject
         property double beakerPointHt : (densityExperimentArea.height / 1.20) / 50
         property double liquidLevel : 30 * beakerPointHt
@@ -101,7 +101,10 @@ Item {
             height: (4 * densityWin.height)/10
             anchors {
                 left : liquidTypeArea.left
+                //TODO:
                 top : liquidTypeArea.bottom
+                //leftMargin: 20
+                //bottomMargin: 20
             }
         }
 

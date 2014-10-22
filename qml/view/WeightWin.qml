@@ -20,7 +20,7 @@ Item {
         DropArea {
             id : dropArea
             height:  weightWin.height - weighingScaleArea.height
-            width: weighingScaleArea.width
+            width: weighingScaleArea.width - 20
 
             anchors{
                 bottom : weighingScaleArea.top
@@ -28,6 +28,7 @@ Item {
             }
 
             onDropped:  {
+                drag.source.opacity = 1
                 droppedObject = drag.source                
                 droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y) - droppedObject.height)
                 droppedObject.setState("inWeight")
@@ -36,6 +37,14 @@ Item {
                 setImageObject(droppedObject)
                 setWeight(droppedObject.weight)
             }
+
+            onEntered: {
+                drag.source.opacity = 0.5
+            }
+
+             onExited: {
+                 drag.source.opacity = 1
+             }
         }
 
         Text {
@@ -51,7 +60,7 @@ Item {
             height: weighingScaleArea.height/5
             font.pixelSize: height/1.3
             textFormat: TextEdit.AutoText
-            color: "red"
+            color: "yellow"
 
             text: "00.00"
             horizontalAlignment: TextEdit.AlignHCenter
