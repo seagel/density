@@ -20,7 +20,7 @@ Item {
         DropArea {
             id : dropArea
             height:  weightWin.height - weighingScaleArea.height
-            width: weighingScaleArea.width
+            width: weighingScaleArea.width - 20
 
             anchors{
                 bottom : weighingScaleArea.top
@@ -54,7 +54,7 @@ Item {
             height: weighingScaleArea.height/5
             font.pixelSize: height/1.3
             textFormat: TextEdit.AutoText
-            color: "red"
+            color: "yellow"
 
             text: "00.00"
             horizontalAlignment: TextEdit.AlignHCenter
