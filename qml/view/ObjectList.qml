@@ -59,7 +59,7 @@ import QtQuick 2.0
             },
             Rectangle { property string imgSource: "images/wooden-block.png";
                         property string imgName:  "Wooden Block";
-                        property double weight: 45.00
+                        property double weight: 20.00
                         property double density: 0.8
                         property int horizontalSpacing: 20
                         property int verticalSpacing: 5
