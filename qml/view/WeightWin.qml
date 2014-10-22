@@ -28,6 +28,7 @@ Item {
             }
 
             onDropped:  {
+                drag.source.opacity = 1
                 droppedObject = drag.source                
                 droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y) - droppedObject.height)
                 droppedObject.setState("inWeight")
@@ -36,6 +37,14 @@ Item {
                 setImageObject(droppedObject)
                 setWeight(droppedObject.weight)
             }
+
+            onEntered: {
+                drag.source.opacity = 0.5
+            }
+
+             onExited: {
+                 drag.source.opacity = 1
+             }
         }
 
 

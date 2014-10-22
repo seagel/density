@@ -15,8 +15,8 @@ Item {
         source: "images/background.jpeg"
     }
 
-    property int firstRowHeight: mainWin.height/7
-    property int secondRowHeight: (mainWin.height - firstRowHeight)/1.1
+    property int firstRowHeight: mainWin.height/15
+    property int secondRowHeight: (mainWin.height - 2*firstRowHeight)/1.1
 
     /*first row, only one column*/
     ObjectCollectionWin {
@@ -30,6 +30,19 @@ Item {
         }
         z:2
     }
+    //invisible height after the object grid
+    Rectangle {
+        id: emptyAreaBelowObjs
+        visible : false
+        height : firstRowHeight
+        width: mainWin.width
+
+        anchors {
+            top: objectArea.bottom
+            left: objectArea.left
+        }
+        z:2
+    }
 
     /*second row, first column*/
     WeightWin {
@@ -39,7 +52,7 @@ Item {
 
         anchors {
             left: mainWin.left
-            top: objectArea.bottom
+            top: emptyAreaBelowObjs.bottom
         }
 
     }
@@ -62,7 +75,7 @@ Item {
         width: mainWin.width/2
         anchors {
             left: volArea.right
-            top: objectArea.bottom
+            top: emptyAreaBelowObjs.bottom
         }
     }
 

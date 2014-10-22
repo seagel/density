@@ -1,13 +1,16 @@
 import QtQuick 2.0
 
-Flickable {
+Item {
     id : objectCollWin
-    topMargin: objectCollWin.height*0.03
-    leftMargin: objectCollWin.width*0.01
+    z : 5
+    anchors {
+        topMargin: objectCollWin.height * 0.1
+    }
+
     ObjectList{
         id : objList
     }
-    z : 5
+
     Grid {
         id : objGrid
         property bool dragEnabled : true
@@ -15,15 +18,15 @@ Flickable {
         columns: 12
         spacing: 5
 
-        property int cellWidth : (objectCollWin.width-(spacing*columns))/columns
-        property int cellHeight: (objectCollWin.height-(spacing*columns))/rows
+        property int cellWidth : objectCollWin.width/columns
+        property int cellHeight: objectCollWin.height/rows
 
         Repeater {
                 model: objGrid.rows * objGrid.columns
 
                 ObjImage  {
-                    width: objGrid.cellWidth
-                    height: objGrid.cellHeight
+                    width: objGrid.cellWidth - objList.getHorizontalSpacing(index, 5)
+                    height: objGrid.cellHeight - objList.getVerticalSpacing(index, 5)
 
                     imgSource : objList.getSource(index, "")
                     imgName : objList.getName(index, "")
@@ -49,12 +52,13 @@ Flickable {
         id : dropArea
 
         anchors{
-            fill : parent
+            fill : objectCollWin
         }
 
         onDropped:  {
             reset(drag.source)
         }
+
     }
     function reset(imageObject) {
         objGrid.enableDragging()
