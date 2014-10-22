@@ -97,9 +97,10 @@ Flickable {
              droppedObject.disableParentDragging()
              updateWaterLevel(droppedObject.getCalculatedVolume()/10)
              droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y - getObjectBottomSinkLevel(1)))
-             volumeText.text = droppedObject.getCalculatedVolume().toPrecision(5)
+             volumeText.text = droppedObject.getCalculatedVolume()
              setImageObject(droppedObject)
              setVolume(droppedObject.getCalculatedVolume())
+             addValuesToFormula()
          }
          onExited: {
              if(droppedObject !== null ) {

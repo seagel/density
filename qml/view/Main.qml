@@ -92,5 +92,9 @@ Item {
         volArea.reset()
         densityArea.reset()
     }
+
+    function addValuesToFormula() {
+        densityArea.formulaWin.addValuesToFormula()
+    }
 }
 

@@ -1,7 +1,6 @@
 import QtQuick 2.0
 
-
-    Item {
+Item {
 
         property list<Rectangle> objPropertiesList: [
             Rectangle { property string imgSource: "images/iron-ball.png";
@@ -21,8 +20,8 @@ import QtQuick 2.0
             },
             Rectangle { property string imgSource: "images/pingpong-ball.png";
                         property string imgName:  "Pingpong Ball";
-                        property double weight: 2.413
-                        property double density: 0.084
+                        property double weight: 2.41
+                        property double density: 0.1
             },
             Rectangle { property string imgSource: "images/gold-nugget.png";
                         property string imgName:  "Gold Nugget";
@@ -32,7 +31,7 @@ import QtQuick 2.0
             Rectangle { property string imgSource: "images/egg.png";
                         property string imgName:  "Egg";
                         property double weight: 58
-                        property double density: 1.094
+                        property double density: 1.1
             },
             Rectangle { property string imgSource: "images/wooden-block.png";
                         property string imgName:  "Wooden Block";

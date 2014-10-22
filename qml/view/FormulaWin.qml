@@ -7,9 +7,9 @@ Item {
         id: fullFormulaText1
         width: formulaArea.width / 3
         height: formulaArea.height / 2
-        text: "Density(d) = "
+        text: "Density(ρ) = "
         horizontalAlignment: Text.AlignRight
-        font.pixelSize: formulaArea.height/2.5
+        font.pixelSize: formulaArea.height/4
         textFormat: TextEdit.AutoText
         color: "black"
     }
@@ -19,11 +19,12 @@ Item {
         width: formulaArea.width / 3
         height: formulaArea.height / 2
         text: "Mass(m)/Volume(v)"
-        font.pixelSize: formulaArea.height/2.5
+        font.pixelSize: formulaArea.height/4
         textFormat: TextEdit.AutoText
         color: "black"
         anchors.left: fullFormulaText1.right
     }
+
 
     Text {
         id: resultInputText1
@@ -105,6 +106,11 @@ Item {
                 }
             }
         }
+    }
+
+    function addValuesToFormula()
+    {
+        fullFormulaText2.text =  fullFormulaText2.text + " = "+ calculatedWeight + "(m)/" + calculatedVolume + "(v)"
     }
 
     function reset() {

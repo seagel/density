@@ -112,7 +112,7 @@ Flickable {
     }
 
     function getCalculatedVolume() {
-        return weight / density;
+        return (weight / density).toFixed(2);
     }
 
     function getVolume() {

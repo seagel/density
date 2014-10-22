@@ -10,7 +10,7 @@ Item {
 
         Image {
             id : weighingScaleArea
-            width: weightWin.width/1.2
+            width: weightWin.width/1.5
             height: weightWin.height/3
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
@@ -38,6 +38,12 @@ Item {
             }
         }
 
+        Text {
+            id : wightUnit
+            text: "Grams"
+            anchors.bottom: weightText.top
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
 
         TextEdit {
             id : weightText

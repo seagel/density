@@ -8,6 +8,7 @@ Item {
         property ObjImage droppedObject
         property double beakerPointHt : (densityExperimentArea.height / 1.20) / 50
         property double liquidLevel : 30 * beakerPointHt
+        property alias formulaWin : formulaArea
 
         FormulaWin {
             id: formulaArea
