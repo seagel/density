@@ -84,18 +84,13 @@ Item {
                                 id : buttonMouseArea
                                 anchors.fill: parent
                                 onClicked : {
-                                    if(droppedObject !== null && droppedObject.state == "inBeaker" && droppedObject.getSinkStatus(liqDensity) !== droppedObject.getSinkStatus(liquidArea.density)) {
-                                        console.log("droppedObject.y:" + droppedObject.y +",dropArea.height:"+dropArea.height+ ",dropArea.y"+dropArea.y+", liquidArea.y:"+liquidArea.y+","+liquidArea.height  +", getObjectBottomSinkLevel:"+ getObjectBottomSinkLevel(liquidArea.density))//- drag.y
-
-                                        if(droppedObject.getSinkStatus(liqDensity) == "sinks"){
-                                            droppedObject.changePosition(droppedObject.x, droppedObject.y+getObjectBottomSinkLevel(liquidArea.density)-getObjectBottomSinkLevel(liqDensity))//+liquidArea.height
-                                        }
-                                        else{
-                                            droppedObject.changePosition(droppedObject.x, droppedObject.y+droppedObject.height-getObjectBottomSinkLevel(liqDensity))
-                                        }
+                                    if(droppedObject !== null && droppedObject.state == "inBeaker" ) {
+                                        droppedObject.changePosition(droppedObject.x, droppedObject.y+getObjectBottomSinkLevel(liquidArea.density)-getObjectBottomSinkLevel(liqDensity))
                                         liquidArea.density = liqDensity
                                         liquidArea.type = liquidText.text
-                                        resultsGrid.addRow(droppedObject.imgName, liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
+                                        if(liquidArea.color !== color){
+                                            resultsGrid.addRow(droppedObject.imgName, liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
+                                        }
                                     }
                                     liquidArea.density = liqDensity
                                     liquidArea.type = liquidText.text
