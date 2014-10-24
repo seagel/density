@@ -62,8 +62,10 @@ Flickable {
             property real mouseX: 0
             property real mouseY: 0
             z : 10
+            property alias textId:textId
 
             Text {
+                id:textId
                 x: imgText.mouseX + 10
                 y: imgText.mouseY + 5
                 z: 100

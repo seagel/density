@@ -110,10 +110,11 @@ Item {
 
     function addValuesToFormula()
     {
-        fullFormulaText2.text =  fullFormulaText2.text + " = "+ calculatedWeight + "(m)/" + calculatedVolume + "(v)"
+        fullFormulaText2.text =  "Mass(m)/Volume(v)" + " = "+ calculatedWeight + "(m) / " + calculatedVolume + "(v)"
     }
 
     function reset() {
         resultInputText2.text = ""
+        fullFormulaText2.text =  "Mass(m)/Volume(v)"
     }
 }
