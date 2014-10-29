@@ -1,16 +1,13 @@
 import QtQuick 2.0
 
-Flickable {
+Item {
 
     id : objImgId
     property string imgSource
     property string imgName
-    property string backColor
     property double weight : 0.00
     property double volume : 0.00
     property double density : 0.00
-    property int parentX : 0
-    property int parentY : 0
     z: 10
     state : "inGrid"
 
@@ -28,8 +25,7 @@ Flickable {
             id: imageMouseArea
             hoverEnabled: true
             anchors.fill: imageArea
-            drag.target: (objImgId.parent.dragEnabled === true || objImgId.state != "inGrid") ? imageArea : null
-
+            drag.target: imageArea
 
             onEntered: {
                 imgText.textVisible = true
@@ -49,7 +45,19 @@ Flickable {
             }
 
             onClicked: {
+
             }
+            onPressed: {
+                if(objImgId.state == "inGrid") {
+                    parentReset()
+                    var newObj = Qt.createQmlObject( getQmlObjectString(),
+                                        objImgId.parent,
+                                        "objImgId"
+                                       );
+                    drag.source = newObj
+                }
+            }
+
             onReleased: {
                 imgText.textVisible = false
                 imageArea.Drag.drop()
@@ -96,6 +104,9 @@ Flickable {
             name: "inVolume"
         },
         State {
+            name: "inBeaker"
+        },
+        State {
             name: "none"
         }
     ]
@@ -103,12 +114,7 @@ Flickable {
     function setState(newState) {
         state = newState
     }
-    function disableParentDragging(){
-        this.parent.disableDragging()
-    }
-    function enableParentDragging(){
-        this.parent.enableDragging()
-    }
+
     function updaetVolume(volume) {
         this.volume = volume
     }
@@ -150,6 +156,27 @@ Flickable {
     Behavior on y {
         PropertyAnimation { duration: 400; }
     }
+
+    function getQmlObjectString() {
+        var str = "import QtQuick 2.0; ObjImage  { " + "\n" +
+                                    "width: " + objImgId.width + "\n" +
+                                    "height: " + objImgId.height + "\n" +
+                                    "imgSource : \"" +  objImgId.imgSource + "\"\n" +
+                                    "imgName : \"" + objImgId.imgName + "\"\n" +
+                                    "weight : " + objImgId.weight + "\n" +
+                                    "density: " + objImgId.density + "\n" +
+                                    "opacity : " + objImgId.opacity + "\n" +
+                                    "x : " + x + "\n" +
+                                    "y : " + y + "\n" +
+                                    "z : " + z + "\n }" + "\n"
+        return str
+    }
+
+
+    function parentReset() {
+        objImgId.parent.parentReset()
+    }
+
     function reset() {
 
     }

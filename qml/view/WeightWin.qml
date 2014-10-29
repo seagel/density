@@ -20,7 +20,7 @@ Item {
         DropArea {
             id : dropArea
             height:  weightWin.height - weighingScaleArea.height
-            width: weighingScaleArea.width - 20
+            width: weighingScaleArea.width * 0.7
 
             anchors{
                 bottom : weighingScaleArea.top
@@ -32,10 +32,10 @@ Item {
                 droppedObject = drag.source                
                 droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y) - droppedObject.height)
                 droppedObject.setState("inWeight")
-                droppedObject.disableParentDragging()
                 weightText.text = droppedObject.weight
                 setImageObject(droppedObject)
                 setWeight(droppedObject.weight)
+                addValuesToFormula()
             }
 
             onEntered: {
@@ -73,7 +73,9 @@ Item {
         }
 
         function reset() {
-            droppedObject = null
             weightText.text = "00.00"
+            if(droppedObject !== null)
+                droppedObject.opacity = 0
+            droppedObject = null
         }
 }

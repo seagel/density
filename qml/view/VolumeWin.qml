@@ -41,7 +41,7 @@ Flickable {
         width: cylinderImage.width/2.233
         height: volumeWin.liquidLevel
         opacity : 0.3
-        color : "blue"
+        color : "#006aff"
         z : 2
         anchors {
             bottom: baseArea.top
@@ -72,7 +72,7 @@ Flickable {
         height: baseArea.height/2
         font.pixelSize: height/1.8
         textFormat: TextEdit.AutoText
-        color: "red"
+        color: "yellow"
         text: droppedObject == null ? "00.00" : droppedObject.getCalculatedVolume()
         horizontalAlignment: TextEdit.AlignHCenter
         verticalAlignment: TextEdit.AlignVCenter
@@ -86,7 +86,13 @@ Flickable {
 
 
     DropArea {
-         anchors.fill: cylinderArea
+        id : dropArea
+         width : cylinderArea.width
+         height : cylinderArea.height
+         anchors  {
+             left : cylinderArea.left
+             bottom : cylinderArea.bottom
+         }
          onEntered: {
              drag.source.opacity = 0.5
          }
@@ -94,7 +100,6 @@ Flickable {
          onDropped:  {
              droppedObject = drag.source
              droppedObject.setState("inVolume")
-             droppedObject.disableParentDragging()
              updateWaterLevel(droppedObject.getCalculatedVolume()/10)
              droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y - getObjectBottomSinkLevel(1)))
              volumeText.text = droppedObject.getCalculatedVolume()
@@ -128,8 +133,11 @@ Flickable {
     }
 
     function reset() {
-        droppedObject = null
         volumeText.text = "00.00"
         increasePointHt = 0
+        if(droppedObject !== null) {
+            droppedObject.opacity = 0
+        }
+        droppedObject = null
     }
 }

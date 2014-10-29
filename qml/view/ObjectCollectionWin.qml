@@ -5,6 +5,7 @@ Item {
     z : 5
     anchors {
         topMargin: objectCollWin.height * 0.1
+        leftMargin: objectCollWin.width * 0.1
     }
 
     ObjectList{
@@ -13,7 +14,6 @@ Item {
 
     Grid {
         id : objGrid
-        property bool dragEnabled : true
         rows: 1
         columns: 12
         spacing: 5
@@ -33,36 +33,17 @@ Item {
                     weight : objList.getWeight(index, "00.00")
                     density: objList.getDensity(index, "00.00")
                     opacity : objList.validIndex(index) ? 1 : 0
-                    z: 5
                }
 
         }
-
-        function enableDragging() {
-            objGrid.dragEnabled = true
-        }
-
-        function disableDragging() {
-            objGrid.dragEnabled = false
+        function parentReset() {
+            objGrid.parent.parentReset()
         }
 
     }
 
-    DropArea {
-        id : dropArea
-
-        anchors{
-            fill : objectCollWin
-        }
-
-        onDropped:  {
-            reset(drag.source)
-        }
-
+    function parentReset() {
+        reset()
     }
-    function reset(imageObject) {
-        objGrid.enableDragging()
-        imageObject.setState("inGrid")
-        parent.reset()
-    }
+
 }

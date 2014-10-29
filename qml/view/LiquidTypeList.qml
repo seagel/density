@@ -3,29 +3,29 @@ import QtQuick 2.0
 Item {
     //density is in gm/ml
     property list<Rectangle> liquidTypeList: [
-        Rectangle { property string recName: "water"
-                    property string recColor :  "blue"
-                    property double recOpacity: 0.3
+        Rectangle { property string recName: "Water"
+                    property string recColor :  "#006aff"
+                    property double recOpacity: 0.5
                     property double recDensity: 1
         },
-        Rectangle { property string recName: "oil"
+        Rectangle { property string recName: "Oil"
                     property string recColor :  "yellow"
                     property double recOpacity: 1
                     property double recDensity: 1.6
         },
-        Rectangle { property string recName: "petrol"
-                    property string recColor :  "#FFD700"
-                    property double recOpacity: 0.7
+        Rectangle { property string recName: "Petrol"
+                    property string recColor :  "gold"
+                    property double recOpacity: 1
                     property double recDensity: 1
         },
         Rectangle { property string recName: "Sea Water"
-                    property string recColor :  "violet"
-                    property double recOpacity: 0.5
+                    property string recColor :  "slateblue"
+                    property double recOpacity: 1
                     property double recDensity: 1.025
         },
         Rectangle { property string recName: "Corn Syrup"
-                    property string recColor :  "green"
-                    property double recOpacity: 0.8
+                    property string recColor :  "teal"
+                    property double recOpacity: 1
                     property double recDensity: 1.33
         }
     ]

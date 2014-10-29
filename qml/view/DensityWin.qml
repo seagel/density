@@ -3,8 +3,6 @@ import QtQuick.Controls 1.2
 
 Item {
         id : densityWin
-        //width: densityWin.width
-        //height: densityWin.height
         property ObjImage droppedObject
         property double beakerPointHt : (densityExperimentArea.height / 1.20) / 50
         property double liquidLevel : 30 * beakerPointHt
@@ -72,7 +70,7 @@ Item {
                                 horizontalAlignment: TextEdit.AlignHCenter
                                 verticalAlignment: TextEdit.AlignVCenter
                                 font.pixelSize: parent.height/2
-                                color: "red"
+                                color: "black"
                             }
 
                             color : liquidList.getColor(index, "black")
@@ -110,10 +108,7 @@ Item {
             height: (4 * densityWin.height)/10
             anchors {
                 left : liquidTypeArea.left
-                //TODO:
                 top : liquidTypeArea.bottom
-                //leftMargin: 20
-                //bottomMargin: 20
             }
         }
 
@@ -134,7 +129,7 @@ Item {
             }
             radius: 20
             opacity : 0.3
-            color : "blue"
+            color : "#006aff"
 
         }
 
@@ -169,11 +164,8 @@ Item {
                  droppedObject = drag.source
                  droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y - getObjectBottomSinkLevel(liquidArea.density)))
                  droppedObject.setState("inBeaker")
-                 droppedObject.disableParentDragging()
-                 //updateWaterLevel(drag.source.volume/10)
-
                  resultsGrid.addRow(droppedObject.imgName, liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
-
+                 setImageObject(droppedObject)
              }
              onExited: {
                 drag.source.opacity = 1
@@ -196,10 +188,12 @@ Item {
         }
 
         function reset() {
-            droppedObject = null
             showDensityExperiment(false)
             liquidArea.height = liquidLevel
             formulaArea.reset()
+            if(droppedObject !== null)
+                droppedObject.opacity = 0
+            droppedObject = null
         }
 
         function getObjectBottomSinkLevel(liquidDensity) {

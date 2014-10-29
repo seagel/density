@@ -4,21 +4,6 @@ import QtQuick 2.0
     Item {
 
         property list<Rectangle> objPropertiesList: [
-            //left empty cell for easy dragging of first object
-            Rectangle { property string imgSource: "";
-                        property string imgName:  "";
-                        property double weight: 00.00
-                        property double density: 1.00
-                        property int horizontalSpacing: 0
-                        property int verticalSpacing: 0
-            },
-            Rectangle { property string imgSource: "images/iron-ball.png";
-                        property string imgName:  "Iron Ball";
-                        property double weight: 100.00
-                        property double density: 7.86
-                        property int horizontalSpacing: 20
-                        property int verticalSpacing: 10
-            },
             Rectangle { property string imgSource: "images/golf-ball.png";
                         property string imgName:  "Golf Ball";
                         property double weight: 40.96
@@ -85,6 +70,13 @@ import QtQuick 2.0
                         property double density: 7.18
                         property int horizontalSpacing: 10
                         property int verticalSpacing: 5
+            },
+            Rectangle { property string imgSource: "images/iron-ball.png";
+                        property string imgName:  "Iron Ball";
+                        property double weight: 100.00
+                        property double density: 7.86
+                        property int horizontalSpacing: 20
+                        property int verticalSpacing: 10
             }
         ]
 
