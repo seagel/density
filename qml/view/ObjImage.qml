@@ -50,11 +50,7 @@ Item {
             onPressed: {
                 if(objImgId.state == "inGrid") {
                     parentReset()
-                    var newObj = Qt.createQmlObject( getQmlObjectString(),
-                                        objImgId.parent,
-                                        "objImgId"
-                                       );
-                    drag.source = newObj
+                    drag.source = getDuplicateObject()
                 }
             }
 
@@ -80,9 +76,6 @@ Item {
                 visible: imgText.textVisible
                 text : imgName
                 wrapMode: Text.WordWrap
-
-
-
             }
 
         }
@@ -157,8 +150,8 @@ Item {
         PropertyAnimation { duration: 400; }
     }
 
-    function getQmlObjectString() {
-        var str = "import QtQuick 2.0; ObjImage  { " + "\n" +
+    function getDuplicateObject() {
+        var qmlStr = "import QtQuick 2.0; ObjImage  { " + "\n" +
                                     "width: " + objImgId.width + "\n" +
                                     "height: " + objImgId.height + "\n" +
                                     "imgSource : \"" +  objImgId.imgSource + "\"\n" +
@@ -169,7 +162,8 @@ Item {
                                     "x : " + x + "\n" +
                                     "y : " + y + "\n" +
                                     "z : " + z + "\n }" + "\n"
-        return str
+
+        return objImgId.parent.getNewObject(qmlStr)
     }
 
 

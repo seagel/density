@@ -20,7 +20,8 @@ Item {
 
     DropArea {
         id : mainWin
-
+        width: parent.width
+        height: parent.height
         anchors{
             fill: parent
         }
@@ -122,7 +123,7 @@ Item {
         volArea.reset()
         densityArea.reset()
         if(activeImageObject !== null) {
-            activeImageObject.opacity = 0
+            activeImageObject.destroy()
         }
     }
 
