@@ -83,7 +83,7 @@ Item {
                                 anchors.fill: parent
                                 onClicked : {
                                     if(droppedObject !== null && droppedObject.state == "inBeaker" ) {
-                                        droppedObject.changePosition(droppedObject.x, droppedObject.y+getObjectBottomSinkLevel(liquidArea.density)-getObjectBottomSinkLevel(liqDensity))
+                                        droppedObject.changePosition(droppedObject.x, droppedObject.y+getLiquidBottomToObjectTopHeight(liquidArea.density)-getLiquidBottomToObjectTopHeight(liqDensity))
                                         liquidArea.density = liqDensity
                                         liquidArea.type = liquidText.text
                                         if(liquidArea.color !== color){
@@ -162,7 +162,7 @@ Item {
              onDropped:  {
                  sinks = false
                  droppedObject = drag.source
-                 droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y - getObjectBottomSinkLevel(liquidArea.density)))
+                 droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y - getLiquidBottomToObjectTopHeight(liquidArea.density)))
                  droppedObject.setState("inBeaker")
                  resultsGrid.addRow(droppedObject.imgName, liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
                  setImageObject(droppedObject)
@@ -190,13 +190,15 @@ Item {
         function reset() {
             showDensityExperiment(false)
             liquidArea.height = liquidLevel
+            liquidArea.color = "#006aff"
+            liquidArea.opacity = 0.3
             formulaArea.reset()
             if(droppedObject !== null)
                 droppedObject.opacity = 0
             droppedObject = null
         }
 
-        function getObjectBottomSinkLevel(liquidDensity) {
+        function getLiquidBottomToObjectTopHeight(liquidDensity) {
             var objectFloatHt = droppedObject.height - droppedObject.getSubMergedHeight(liquidDensity)
             if(objectFloatHt <= 0 ) {
                 return droppedObject.height
