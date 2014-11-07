@@ -8,6 +8,7 @@ Item {
     property double weight : 0.00
     property double volume : 0.00
     property double density : 0.00
+    property int cellNumber: 0
     z: 10
     state : "inGrid"
 
@@ -44,13 +45,9 @@ Item {
                 imgText.textVisible = false
             }
 
-            onClicked: {
-
-            }
             onPressed: {
                 if(objImgId.state == "inGrid") {
                     parentReset()
-                    drag.source = getDuplicateObject()
                 }
             }
 
@@ -143,6 +140,10 @@ Item {
             return "sinks"
         }
     }
+    function getCellNumber() {
+        return objImgId.cellNumber
+    }
+
     Behavior on x {
         PropertyAnimation { duration: 400; }
     }
@@ -159,6 +160,7 @@ Item {
                                     "weight : " + objImgId.weight + "\n" +
                                     "density: " + objImgId.density + "\n" +
                                     "opacity : " + objImgId.opacity + "\n" +
+                                    "cellNumber : " + objImgId.cellNumber + "\n" +
                                     "x : " + x + "\n" +
                                     "y : " + y + "\n" +
                                     "z : " + z + "\n }" + "\n"
@@ -174,5 +176,4 @@ Item {
     function reset() {
 
     }
-
 }

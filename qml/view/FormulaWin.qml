@@ -3,51 +3,98 @@ import QtQuick.Controls.Styles 1.2
 
 Item {
     id: formulaArea
-    Text {
-        id: fullFormulaText1
-        width: formulaArea.width / 3
-        height: formulaArea.height / 2
-        text: "Density(ρ) = "
-        horizontalAlignment: Text.AlignRight
-        font.pixelSize: formulaArea.height/4
-        textFormat: TextEdit.AutoText
-        color: "black"
+    property int textHeight: height/6
+
+    Rectangle {
+        id : topEmptyArea
+        height: formulaArea.height * 0.2
+        width: formulaArea.width
+        color: "lightgreen"
+        visible: false
+    }
+
+    Rectangle{
+        id : leftEmptyArea
+        width: formulaArea.width * 0.2
+        height: formulaArea.height
+        color: "lightgreen"
+        anchors.top: topEmptyArea.bottom
+        visible: false
     }
 
     Text {
-        id: fullFormulaText2
-        width: formulaArea.width / 3
-        height: formulaArea.height / 2
-        text: "Mass(m)/Volume(v)"
-        font.pixelSize: formulaArea.height/4
+        id: densityText
+        width: getTextWidth("Density")
+        text: "Density "
+        font.pixelSize: formulaArea.textHeight
         textFormat: TextEdit.AutoText
         color: "black"
-        anchors.left: fullFormulaText1.right
+        anchors.left: leftEmptyArea.right
+        anchors.top: topEmptyArea.bottom
     }
 
-
     Text {
-        id: resultInputText1
-        width: fullFormulaText1.width
-        height: fullFormulaText1.height
+        id: equalText
+        width: getTextWidth(" = ")
         text: " = "
-        horizontalAlignment: Text.AlignRight
-        font.pixelSize: formulaArea.height/2.5
-        anchors.top : fullFormulaText1.bottom
-        anchors.left: fullFormulaText1.left
+        font.pixelSize: formulaArea.textHeight
         textFormat: TextEdit.AutoText
-        color: "red"
+        color: "black"
+        anchors {
+            left : densityText.right
+            top: topEmptyArea.bottom
+        }
+    }
+
+    Text {
+        id: massText
+        width: getTextWidth("Mass ")
+        text: "Mass "
+        font.pixelSize: formulaArea.textHeight
+        textFormat: TextEdit.AutoText
+        color: "black"
+        anchors.left: equalText.right
+        anchors.top: topEmptyArea.bottom
+
+    }
+
+    Text {
+        id: divideText
+        width: getTextWidth(" /")
+        text: " /"
+        font.pixelSize: formulaArea.textHeight
+        textFormat: TextEdit.AutoText
+        color: "black"
+        anchors.left: massText.right
+        anchors.top: topEmptyArea.bottom
+    }
+
+    Text {
+        id: volumeText
+        width: getTextWidth("Volume")
+        text: "Volume"
+        font.pixelSize: formulaArea.textHeight
+        textFormat: TextEdit.AutoText
+        color: "black"
+        anchors.left: divideText.right
+        anchors.top: topEmptyArea.bottom
     }
 
     TextInput {
-        id: resultInputText2
-        width: fullFormulaText2.width/1.1
-        height: fullFormulaText2.height
-        anchors.top : fullFormulaText2.bottom
-        anchors.left: fullFormulaText2.left
+        id: densityInput
+        width: densityText.width
+        height: densityText.height
+        anchors {
+            left : densityText.left
+            top : densityText.bottom
+        }
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+
         color : "red"
         font.bold: true
-        font.pixelSize: formulaArea.height/2.5
+        text : "0"
+        font.pixelSize: formulaArea.textHeight * 0.7
         focus : true
         Rectangle {
             anchors.fill: parent
@@ -61,60 +108,88 @@ Item {
             decimals: 3
         }
         maximumLength: 9
-    }
 
-    Rectangle {
-        id : validateButton
-        width: fullFormulaText2.width/2
-        height: fullFormulaText2.height
-        anchors {
-            left : resultInputText2.right
-            bottom : resultInputText2.bottom
-            leftMargin: 2
-        }
-        color : "yellow"
-        radius : 5
-        border.width: 1
-        border.color : "red"
-        signal clicked
-
-        Text {
-            id : validateButtonText
-            text : "validate"
-            color : "red"
-            anchors.fill : validateButton
-            anchors.centerIn: validateButton
-            horizontalAlignment: TextEdit.AlignHCenter
-            verticalAlignment: TextEdit.AlignVCenter
-            font.pixelSize: validateButtonText.height/2
-        }
-        MouseArea {
-            id : buttonMouseArea
-            property double calculatedDensity : 0.0
-            property double inputDensity : 0.0
-            anchors.fill: validateButton
-            onClicked : {
-                if(resultInputText2.text.length > 0 && calculatedWeight !== 0.0 && calculatedVolume !== 0.0) {
-                    calculatedDensity = calculatedWeight/calculatedVolume
-                    calculatedDensity.toPrecision(5)
-                    inputDensity = resultInputText2.text
-                    inputDensity.toPrecision(5)
-                    if(Math.abs(inputDensity - calculatedDensity) <= 0.019)
-                        densityWin.showDensityExperiment(true)
-                    else
-                        densityWin.showDensityExperiment(false)
-                }
+        onTextChanged : {
+            if(densityMatching()) {
+                showDensityExperiment()
+                readOnly = true
             }
         }
+
     }
 
-    function addValuesToFormula()
-    {
-        fullFormulaText2.text =  "Mass(m)/Volume(v)" + " = "+ calculatedWeight + "(m) / " + calculatedVolume + "(v)"
+    Text {
+        id: massResultText
+        width: massText.width
+        height: massText.height
+        text: "0"
+        font.pixelSize: formulaArea.textHeight  * 0.7
+        textFormat: TextEdit.AutoText
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        color: "red"
+        font.bold: true
+        Rectangle {
+            anchors.fill: parent
+            opacity: 0.2
+            border.color: "red"
+        }
+        anchors {
+            left : massText.left
+            top : massText.bottom
+        }
+    }
+
+    Text {
+        id: volumeResultText
+        width: volumeText.width
+        height: volumeText.height
+        text: "0"
+        font.pixelSize: formulaArea.textHeight  * 0.7
+        textFormat: TextEdit.AutoText
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        color: "red"
+        font.bold: true
+        Rectangle {
+            anchors.fill: parent
+            opacity: 0.2
+            border.color: "red"
+        }
+        anchors {
+            left : volumeText.left
+            top : volumeText.bottom
+        }
+    }
+
+    function getTextWidth(text) {
+        return (text.length) * (formulaArea.textHeight * 0.8)
+    }
+
+    function updateVolume(volume) {
+        volumeResultText.text = volume.toString()
+    }
+
+    function updateWeight(mass) {
+        massResultText.text = mass.toString()
+    }
+
+    function densityMatching() {
+        if(Number(densityInput.text) > 0 && Number(massResultText.text) > 0 && Number(volumeResultText.text) > 0) {
+            var calculatedDensity = Number(massResultText.text)/Number(volumeResultText.text)
+            calculatedDensity.toPrecision(5)
+            var inputDensity = Number(densityInput.text)
+            inputDensity.toPrecision(5)
+            if(Math.abs(inputDensity - calculatedDensity) <= 0.019)
+                return true
+        }
+        return false
     }
 
     function reset() {
-        resultInputText2.text = ""
-        fullFormulaText2.text =  "Mass(m)/Volume(v)"
+        densityInput.text = "0"
+        massResultText.text = "0"
+        volumeResultText.text = "0"
+        densityInput.readOnly = false
     }
 }

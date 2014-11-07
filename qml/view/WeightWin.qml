@@ -35,7 +35,6 @@ Item {
                 weightText.text = droppedObject.weight
                 setImageObject(droppedObject)
                 setWeight(droppedObject.weight)
-                addValuesToFormula()
             }
 
             onEntered: {
@@ -74,8 +73,6 @@ Item {
 
         function reset() {
             weightText.text = "00.00"
-            if(droppedObject !== null)
-                droppedObject.opacity = 0
             droppedObject = null
         }
 }

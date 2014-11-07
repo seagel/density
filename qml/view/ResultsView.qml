@@ -18,17 +18,8 @@ Item {
            role: "observation"
            title: "Observation"
            width: resultsTable.width/4
-            delegate: Item {
-                ComboBox{
-                    anchors.verticalCenter: parent.verticalCenter
-                    model: ListModel{
-                        ListElement {text: "Select"}
-                        ListElement{ text: "Sinks"}
-                        ListElement{ text: "Floats"}
-                    }
-                }
-            }
        }
+
        model: resultsModel
     }
 

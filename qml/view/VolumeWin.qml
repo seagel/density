@@ -105,7 +105,6 @@ Flickable {
              volumeText.text = droppedObject.getCalculatedVolume()
              setImageObject(droppedObject)
              setVolume(droppedObject.getCalculatedVolume())
-             addValuesToFormula()
          }
          onExited: {
              if(droppedObject !== null ) {
@@ -113,7 +112,6 @@ Flickable {
                     increasePointHt = 0
                  }
                 droppedObject.setState("none")
-                droppedObject = null
              }
              drag.source.opacity = 1
          }
@@ -135,9 +133,6 @@ Flickable {
     function reset() {
         volumeText.text = "00.00"
         increasePointHt = 0
-        if(droppedObject !== null) {
-            droppedObject.opacity = 0
-        }
         droppedObject = null
     }
 }

@@ -137,5 +137,8 @@ import QtQuick 2.0
             }
         }
 
+        function getLength() {
+            return objPropertiesList.length;
+        }
     }
 

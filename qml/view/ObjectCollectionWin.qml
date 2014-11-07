@@ -3,36 +3,51 @@ import QtQuick 2.0
 Item {
     id : objectCollWin
     z : 5
+    property ObjImage imgObj
+    property int objIndex: -1
+
     anchors {
         topMargin: objectCollWin.height * 0.1
-        leftMargin: objectCollWin.width * 0.1
+        leftMargin: objectCollWin.width * 0.15
     }
 
     ObjectList{
         id : objList
     }
 
+    Rectangle {
+        border.color : "yellow"
+        border.width: 3
+        color : "#49BAB6"
+        z: 0
+    }
+
     Grid {
         id : objGrid
         rows: 1
-        columns: 12
-        spacing: 5
-        property int cellWidth : objectCollWin.width/columns
+        columns: (objIndex !== -1) ? 1 : objList.getLength()
+        spacing: 10
+        property int cellWidth : objectCollWin.width/objList.getLength()
         property int cellHeight: objectCollWin.height/rows
 
+
         Repeater {
+                id : gridRepeater
                 model: objGrid.rows * objGrid.columns
 
                 Item {
-                    Component.onCompleted: objGrid.getNewObject(
+                    property int currObjIndex: (objIndex !== -1) ? objIndex : index
+                    Component.onCompleted:
+                                            objGrid.getNewObject(
                                                "import QtQuick 2.0; ObjImage  { "  + "\n" +
-                                                                          "width: " + (objGrid.cellWidth - objList.getHorizontalSpacing(index, 5)) + "\n" +
-                                                                          "height: " + (objGrid.cellHeight - objList.getVerticalSpacing(index, 5)) + "\n" +
-                                                                          "imgSource : \"" +  objList.getSource(index, "") + "\"\n" +
-                                                                          "imgName : \"" + objList.getName(index, "") + "\"\n" +
-                                                                          "weight : " + objList.getWeight(index, "00.00") + "\n" +
-                                                                          "density: " + objList.getDensity(index, "00.00") + "\n" +
-                                                                          "opacity : " + (objList.validIndex(index) ? 1 : 0) + "\n" +
+                                                                          "width: " + (objGrid.cellWidth - objList.getHorizontalSpacing(currObjIndex, 5)) + "\n" +
+                                                                          "height: " + (objGrid.cellHeight - objList.getVerticalSpacing(currObjIndex, 5)) + "\n" +
+                                                                          "imgSource : \"" +  objList.getSource(currObjIndex, "") + "\"\n" +
+                                                                          "imgName : \"" + objList.getName(currObjIndex, "") + "\"\n" +
+                                                                          "weight : " + objList.getWeight(currObjIndex, "00.00") + "\n" +
+                                                                          "density: " + objList.getDensity(currObjIndex, "00.00") + "\n" +
+                                                                          "opacity : " + (objList.validIndex(currObjIndex) ? 1 : 0) + "\n" +
+                                                                          "cellNumber : " + currObjIndex + "\n" +
                                                                           " }" + "\n"
                                                )
                 }
@@ -47,11 +62,9 @@ Item {
                                                     "objImgId"
                                                    );
         }
-
     }
 
     function parentReset() {
-        reset()
+        reset(false)
     }
-
 }

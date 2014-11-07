@@ -6,45 +6,42 @@ Item {
         property ObjImage droppedObject
         property double beakerPointHt : (densityExperimentArea.height / 1.20) / 50
         property double liquidLevel : 30 * beakerPointHt
-        property alias formulaWin : formulaArea
-
-        FormulaWin {
-            id: formulaArea
-            width: densityWin.width
-            height: (1*densityWin.height)/10
-        }
 
         Image {
             id: densityExperimentArea
-            visible: false
-            width: densityWin.width
-            height: (4.7*densityWin.height)/10
+            width: (5 * densityWin.width)/10
+            height: densityWin.height * 0.8
             source: "images/beaker.png"
             anchors {
-                left : formulaArea.left
-                top : formulaArea.bottom
+                bottom : densityWin.bottom
+                left : densityWin.left
+                leftMargin: width * 0.1
             }
         }
 
         Item {
             id: liquidTypeArea
-            visible: false
-            width: densityWin.width
-            height: (1.3*densityWin.height)/10
+            width: (1.1 * densityWin.width)/10
+            height: densityWin.height
             anchors {
-                left : densityExperimentArea.left
-                top : densityExperimentArea.bottom
+                left : densityWin.left
+                bottom : densityWin.bottom
+                leftMargin: liquidTypeArea.width * 0.1
             }
+
             LiquidTypeList{
                 id : liquidList
             }
             Grid {
                 id : liquidButtonGrid
-                property int divideFactor : 4
-                rows: (liquidList.liquidTypeList.length / divideFactor) + 1
-                columns: divideFactor
+                rows: 3 * liquidList.liquidTypeList.length
+                columns: 1
                 spacing: 5
-                anchors.fill : liquidTypeArea
+                anchors {
+                    right : liquidTypeArea.right
+                    bottom : liquidTypeArea.bottom
+                    bottomMargin: liquidTypeArea.width * 0.2
+                }
 
                 property int cellWidth : (liquidTypeArea.width-(spacing*columns))/columns
                 property int cellHeight: (liquidTypeArea.height-(spacing*columns))/rows
@@ -104,17 +101,16 @@ Item {
 
         ResultsView {
             id : resultsGrid
-            width: densityWin.width
-            height: (4 * densityWin.height)/10
+            width: (5*densityWin.width)/10
+            height: densityWin.height
             anchors {
-                left : liquidTypeArea.left
-                top : liquidTypeArea.bottom
+                right : densityWin.right
+                rightMargin: width * 0.05
             }
         }
 
         Rectangle {
             id : liquidArea
-            visible : false
             height : densityWin.liquidLevel
             width : densityExperimentArea.width/2
             property double density: 1
@@ -135,6 +131,7 @@ Item {
 
         Rectangle {
             id : dropAreaRect
+            visible: false
             property double botMargin: densityExperimentArea.height/10
             height : densityExperimentArea.height - botMargin
             width : densityExperimentArea.width/2
@@ -147,14 +144,12 @@ Item {
 
             }
             radius: 20
-            visible : false
         }
 
         DropArea {
             id : dropArea
             property bool sinks: false
             anchors.fill:dropAreaRect
-            visible: false
              onEntered: {
                  drag.source.opacity = 0.5
              }
@@ -169,32 +164,29 @@ Item {
              }
              onExited: {
                 drag.source.opacity = 1
-                droppedObject.setState("none")
+                drag.source.setState("none")
+                droppedObject = null
              }
         }
 
-        function showDensityExperiment(show) {
-            if( show === true) {
-                dropArea.visible = true
-                liquidArea.visible = true
-                liquidTypeArea.visible = true
-                densityExperimentArea.visible = true
-            }else{
-                dropArea.visible = false
-                liquidArea.visible = false
-                densityExperimentArea.visible = false
-                liquidTypeArea.visible = false
-            }
+        function show() {
+            dropArea.visible = true
+            liquidArea.visible = true
+            liquidTypeArea.visible = true
+            densityExperimentArea.visible = true
+        }
+
+        function hide() {
+            dropArea.visible = false
+            liquidArea.visible = false
+            densityExperimentArea.visible = false
+            liquidTypeArea.visible = false
         }
 
         function reset() {
-            showDensityExperiment(false)
             liquidArea.height = liquidLevel
             liquidArea.color = "#006aff"
             liquidArea.opacity = 0.3
-            formulaArea.reset()
-            if(droppedObject !== null)
-                droppedObject.opacity = 0
             droppedObject = null
         }
 
