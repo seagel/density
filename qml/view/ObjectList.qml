@@ -16,7 +16,7 @@ import QtQuick 2.0
                         property string imgName:  "Cotton Ball";
                         property double weight: 70.00
                         property double density: 1.54
-                        property int horizontalSpacing: 12
+                        property int horizontalSpacing: 15
                         property int verticalSpacing: 12
 
             },
@@ -32,7 +32,7 @@ import QtQuick 2.0
                         property string imgName:  "Gold Nugget";
                         property double weight: 500.00
                         property double density: 19.30
-                        property int horizontalSpacing: 5
+                        property int horizontalSpacing: 20
                         property int verticalSpacing: 7
             },
             Rectangle { property string imgSource: "images/egg.png";
@@ -53,7 +53,7 @@ import QtQuick 2.0
                         property string imgName:  "Apple Slice";
                         property double weight: 50.00
                         property double density: 0.86
-                        property int horizontalSpacing: 10
+                        property int horizontalSpacing: 20
                         property int verticalSpacing: 5
 
             },

@@ -20,7 +20,7 @@ Item {
         DropArea {
             id : dropArea
             height:  weightWin.height - weighingScaleArea.height
-            width: weighingScaleArea.width * 0.7
+            width: weighingScaleArea.width - 50
 
             anchors{
                 bottom : weighingScaleArea.top

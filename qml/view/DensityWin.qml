@@ -135,7 +135,7 @@ Item {
             visible: false
             property double botMargin: densityExperimentArea.height/10
             height : densityExperimentArea.height - botMargin
-            width : densityExperimentArea.width/2
+            width : (densityExperimentArea.width/2) - 50
 
             anchors {
                 left : densityExperimentArea.left
@@ -149,14 +149,12 @@ Item {
 
         DropArea {
             id : dropArea
-            property bool sinks: false
             anchors.fill:dropAreaRect
              onEntered: {
                  drag.source.opacity = 0.5
              }
 
              onDropped:  {
-                 sinks = false
                  droppedObject = drag.source
                  droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y - getLiquidBottomToObjectTopHeight(liquidArea.density)))
                  droppedObject.setState("inBeaker")

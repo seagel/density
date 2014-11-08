@@ -87,7 +87,7 @@ Flickable {
 
     DropArea {
         id : dropArea
-         width : cylinderArea.width * 0.6
+         width : cylinderArea.width - 50
          height : cylinderArea.height
          anchors  {
              left : cylinderArea.left
