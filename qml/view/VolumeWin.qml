@@ -87,7 +87,7 @@ Flickable {
 
     DropArea {
         id : dropArea
-         width : cylinderArea.width
+         width : cylinderArea.width * 0.6
          height : cylinderArea.height
          anchors  {
              left : cylinderArea.left
@@ -128,6 +128,10 @@ Flickable {
         }else{
             return waterArea.height + objectFloatHt
         }
+    }
+
+    function getActiveObject() {
+        return droppedObject;
     }
 
     function reset() {

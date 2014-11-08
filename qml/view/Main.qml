@@ -94,6 +94,7 @@ Item {
 
         DensityWin {
             id: densityArea
+            property int cellIndex : -1
             height: thirdRowHeight
             width: mainWin.width
             visible: false
@@ -181,13 +182,13 @@ Item {
 
     function reset(force) {
         if(densityArea.visible == true) {
-            showDensityExperiment()
+            showDensityExperiment(force)
         }else{
             showWeightVolumeExperiment(force)
         }
     }
 
-    function showDensityExperiment() {
+    function showDensityExperiment(force) {
         weightArea.visible = false
         volArea.visible = false
         densityArea.reset()
@@ -196,8 +197,10 @@ Item {
         nextText.text = "next"
 
         if(activeImageObject !== null) {
-            reCreateGridObject(activeImageObject.getCellNumber())
+            densityArea.cellIndex = activeImageObject.getCellNumber()
         }
+        if(force === true)
+            reCreateGridObject(densityArea.cellIndex)
 
         activeImageObject = null
     }

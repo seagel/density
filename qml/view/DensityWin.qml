@@ -79,18 +79,19 @@ Item {
                                 id : buttonMouseArea
                                 anchors.fill: parent
                                 onClicked : {
-                                    if(droppedObject !== null && droppedObject.state == "inBeaker" ) {
-                                        droppedObject.changePosition(droppedObject.x, droppedObject.y+getLiquidBottomToObjectTopHeight(liquidArea.density)-getLiquidBottomToObjectTopHeight(liqDensity))
+                                    if(liquidArea.type.toUpperCase() !== liquidText.text.toUpperCase()) {
+                                        if(droppedObject !== null && droppedObject.state == "inBeaker" ) {
+                                            droppedObject.changePosition(droppedObject.x, droppedObject.y+getLiquidBottomToObjectTopHeight(liquidArea.density)-getLiquidBottomToObjectTopHeight(liqDensity))
+                                            liquidArea.density = liqDensity
+                                            liquidArea.type = liquidText.text
+                                            if(liquidArea.color !== color){
+                                                resultsGrid.addRow(droppedObject.imgName, liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
+                                            }
+                                        }
                                         liquidArea.density = liqDensity
                                         liquidArea.type = liquidText.text
-                                        if(liquidArea.color !== color){
-                                            resultsGrid.addRow(droppedObject.imgName, liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
-                                        }
+                                        liquidArea.color = color
                                     }
-                                    liquidArea.density = liqDensity
-                                    liquidArea.type = liquidText.text
-                                    liquidArea.color = color
-
                                 }
                             }
                        }
@@ -114,7 +115,7 @@ Item {
             height : densityWin.liquidLevel
             width : densityExperimentArea.width/2
             property double density: 1
-            property string type: "water"
+            property string type: "Water"
 
             anchors {
                 left : densityExperimentArea.left

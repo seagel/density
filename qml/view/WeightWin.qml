@@ -71,6 +71,10 @@ Item {
 
         }
 
+        function getActiveObject() {
+            return droppedObject;
+        }
+
         function reset() {
             weightText.text = "00.00"
             droppedObject = null

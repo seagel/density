@@ -15,13 +15,6 @@ Item {
         id : objList
     }
 
-    Rectangle {
-        border.color : "yellow"
-        border.width: 3
-        color : "#49BAB6"
-        z: 0
-    }
-
     Grid {
         id : objGrid
         rows: 1
@@ -52,8 +45,8 @@ Item {
                                                )
                 }
         }
-        function parentReset() {
-            objGrid.parent.parentReset()
+        function parentReset(force) {
+            objGrid.parent.parentReset(force)
         }
 
         function getNewObject(qmlDynamicObj) {
@@ -64,7 +57,7 @@ Item {
         }
     }
 
-    function parentReset() {
-        reset(false)
+    function parentReset(force) {
+        reset(force)
     }
 }

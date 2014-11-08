@@ -27,8 +27,9 @@ Item {
         width: getTextWidth("Density")
         text: "Density "
         font.pixelSize: formulaArea.textHeight
+        font.bold: true
         textFormat: TextEdit.AutoText
-        color: "black"
+        color: "yellow"
         anchors.left: leftEmptyArea.right
         anchors.top: topEmptyArea.bottom
     }
@@ -38,8 +39,9 @@ Item {
         width: getTextWidth(" = ")
         text: " = "
         font.pixelSize: formulaArea.textHeight
+        font.bold: true
         textFormat: TextEdit.AutoText
-        color: "black"
+        color: "yellow"
         anchors {
             left : densityText.right
             top: topEmptyArea.bottom
@@ -51,8 +53,9 @@ Item {
         width: getTextWidth("Mass ")
         text: "Mass "
         font.pixelSize: formulaArea.textHeight
+        font.bold: true
         textFormat: TextEdit.AutoText
-        color: "black"
+        color: "yellow"
         anchors.left: equalText.right
         anchors.top: topEmptyArea.bottom
 
@@ -63,8 +66,9 @@ Item {
         width: getTextWidth(" /")
         text: " /"
         font.pixelSize: formulaArea.textHeight
+        font.bold: true
         textFormat: TextEdit.AutoText
-        color: "black"
+        color: "yellow"
         anchors.left: massText.right
         anchors.top: topEmptyArea.bottom
     }
@@ -74,8 +78,9 @@ Item {
         width: getTextWidth("Volume")
         text: "Volume"
         font.pixelSize: formulaArea.textHeight
+        font.bold: true
         textFormat: TextEdit.AutoText
-        color: "black"
+        color: "yellow"
         anchors.left: divideText.right
         anchors.top: topEmptyArea.bottom
     }
@@ -111,7 +116,7 @@ Item {
 
         onTextChanged : {
             if(densityMatching()) {
-                showDensityExperiment()
+                showDensityExperiment(true)
                 readOnly = true
             }
         }

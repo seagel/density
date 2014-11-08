@@ -47,13 +47,19 @@ Item {
 
             onPressed: {
                 if(objImgId.state == "inGrid") {
-                    parentReset()
+                    parentReset(false)
                 }
             }
 
             onReleased: {
                 imgText.textVisible = false
-                imageArea.Drag.drop()
+                if(imageMouseArea.drag.active == true) {
+                    objImgId.state = "none"
+                    imageArea.Drag.drop()
+                    if(objImgId.state == "none") {
+                        parentReset(true)
+                    }
+                }
             }
         }
 
@@ -135,9 +141,9 @@ Item {
 
     function getSinkStatus(liquidDensity) {
         if(getSubMergedHeight(liquidDensity) < height) {
-            return "float"
+            return "Float"
         }else{
-            return "sinks"
+            return "Sinks"
         }
     }
     function getCellNumber() {
@@ -169,8 +175,8 @@ Item {
     }
 
 
-    function parentReset() {
-        objImgId.parent.parentReset()
+    function parentReset(force) {
+        objImgId.parent.parentReset(force)
     }
 
     function reset() {
