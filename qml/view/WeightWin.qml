@@ -53,7 +53,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        TextEdit {
+        Text {
             id : weightText
             width: weighingScaleArea.width
             height: weighingScaleArea.height/5

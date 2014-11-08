@@ -66,7 +66,7 @@ Flickable {
         z : 2
     }
 
-    TextEdit {
+    Text {
         id : volumeText
         width: baseArea.width/2
         height: baseArea.height/2
