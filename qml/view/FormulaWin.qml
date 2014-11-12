@@ -24,8 +24,8 @@ Item {
 
     Text {
         id: densityText
-        width: getTextWidth("Density")
-        text: "Density "
+        width: getTextWidth("Density(ρ)")
+        text: "Density(ρ) "
         font.pixelSize: formulaArea.textHeight
         font.bold: true
         textFormat: TextEdit.AutoText
@@ -50,8 +50,8 @@ Item {
 
     Text {
         id: massText
-        width: getTextWidth("Mass ")
-        text: "Mass "
+        width: getTextWidth("Mass(m) ")
+        text: "Mass(m) "
         font.pixelSize: formulaArea.textHeight
         font.bold: true
         textFormat: TextEdit.AutoText
@@ -75,8 +75,8 @@ Item {
 
     Text {
         id: volumeText
-        width: getTextWidth("Volume")
-        text: "Volume"
+        width: getTextWidth("Volume(v)")
+        text: "Volume(v)"
         font.pixelSize: formulaArea.textHeight
         font.bold: true
         textFormat: TextEdit.AutoText
@@ -87,7 +87,7 @@ Item {
 
     TextInput {
         id: densityInput
-        width: densityText.width
+        width: densityText.width - getTextWidth("gm/c")
         height: densityText.height
         anchors {
             left : densityText.left
@@ -110,7 +110,7 @@ Item {
         validator: DoubleValidator {
             bottom: 0
             top: 1e10
-            decimals: 3
+            decimals: 2
         }
         maximumLength: 9
 
@@ -124,8 +124,26 @@ Item {
     }
 
     Text {
+        id : densityResultUnits
+        height : densityInput.height
+        width : getTextWidth("gm/cm3")
+        text: " gm/cm3"
+        color: "black"
+        anchors {
+            left : densityInput.right
+            top : densityInput.top
+        }
+        font.pixelSize: formulaArea.textHeight  * 0.7
+        textFormat: TextEdit.AutoText
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+
+    }
+
+
+    Text {
         id: massResultText
-        width: massText.width
+        width: massText.width - getTextWidth("gm")
         height: massText.height
         text: "0"
         font.pixelSize: formulaArea.textHeight  * 0.7
@@ -146,8 +164,25 @@ Item {
     }
 
     Text {
+        id : massResultUnits
+        height : massResultText.height
+        width : getTextWidth("gm")
+        text: " gm"
+        color: "black"
+        anchors {
+            left : massResultText.right
+            top : massResultText.top
+        }
+        font.pixelSize: formulaArea.textHeight  * 0.7
+        textFormat: TextEdit.AutoText
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+
+    }
+
+    Text {
         id: volumeResultText
-        width: volumeText.width
+        width: volumeText.width - getTextWidth("cm3")
         height: volumeText.height
         text: "0"
         font.pixelSize: formulaArea.textHeight  * 0.7
@@ -167,6 +202,24 @@ Item {
         }
     }
 
+    Text {
+        id : volumeResultUnits
+        height : volumeResultText.height
+        width : getTextWidth("cm3")
+        text: " cm3"
+        color: "black"
+        anchors {
+            left : volumeResultText.right
+            top : volumeResultText.top
+        }
+        font.pixelSize: formulaArea.textHeight  * 0.7
+        textFormat: TextEdit.AutoText
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+
+    }
+
+
     function getTextWidth(text) {
         return (text.length) * (formulaArea.textHeight * 0.8)
     }
@@ -182,10 +235,9 @@ Item {
     function densityMatching() {
         if(Number(densityInput.text) > 0 && Number(massResultText.text) > 0 && Number(volumeResultText.text) > 0) {
             var calculatedDensity = Number(massResultText.text)/Number(volumeResultText.text)
-            calculatedDensity.toPrecision(5)
+            calculatedDensity = Math.floor((calculatedDensity * 10 * 10))/100
             var inputDensity = Number(densityInput.text)
-            inputDensity.toPrecision(5)
-            if(Math.abs(inputDensity - calculatedDensity) <= 0.019)
+            if(inputDensity == calculatedDensity)
                 return true
         }
         return false

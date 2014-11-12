@@ -116,7 +116,7 @@ Item {
     }
 
     function getCalculatedVolume() {
-        return (weight / density).toFixed(2);
+        return (weight / density).toFixed();
     }
 
     function getVolume() {
@@ -174,6 +174,9 @@ Item {
         return objImgId.parent.getNewObject(qmlStr)
     }
 
+    function getDensity() {
+        return density
+    }
 
     function parentReset(force) {
         objImgId.parent.parentReset(force)

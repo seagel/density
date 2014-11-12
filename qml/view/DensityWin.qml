@@ -85,7 +85,7 @@ Item {
                                             liquidArea.density = liqDensity
                                             liquidArea.type = liquidText.text
                                             if(liquidArea.color !== color){
-                                                resultsGrid.addRow(droppedObject.imgName, liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
+                                                resultsGrid.addRow(droppedObject.imgName, droppedObject.getDensity(), liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
                                             }
                                         }
                                         liquidArea.density = liqDensity
@@ -158,7 +158,7 @@ Item {
                  droppedObject = drag.source
                  droppedObject.changePosition(droppedObject.x, droppedObject.y + (height - drag.y - getLiquidBottomToObjectTopHeight(liquidArea.density)))
                  droppedObject.setState("inBeaker")
-                 resultsGrid.addRow(droppedObject.imgName, liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
+                 resultsGrid.addRow(droppedObject.imgName, droppedObject.getDensity(), liquidArea.type, liquidArea.density, droppedObject.getSinkStatus(liquidArea.density))
                  setImageObject(droppedObject)
              }
              onExited: {
@@ -182,10 +182,14 @@ Item {
             liquidTypeArea.visible = false
         }
 
-        function reset() {
+        function reset(force) {
             liquidArea.height = liquidLevel
-            liquidArea.color = "#006aff"
-            liquidArea.opacity = 0.3
+            if(force === true) {
+                liquidArea.color = "#006aff"
+                liquidArea.opacity = 0.3
+                liquidArea.density = 1
+                liquidArea.type = "Water"
+            }
             droppedObject = null
         }
 

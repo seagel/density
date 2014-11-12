@@ -6,8 +6,8 @@ import QtQuick 2.0
         property list<Rectangle> objPropertiesList: [
             Rectangle { property string imgSource: "images/golf-ball.png";
                         property string imgName:  "Golf Ball";
-                        property double weight: 40.96
-                        property double density: 1.15
+                        property double weight: 40
+                        property double density: 1.14
                         property int horizontalSpacing: 20
                         property int verticalSpacing: 10
 
@@ -15,14 +15,14 @@ import QtQuick 2.0
             Rectangle { property string imgSource: "images/cotton-ball.png";
                         property string imgName:  "Cotton Ball";
                         property double weight: 70.00
-                        property double density: 1.54
+                        property double density: 1.55
                         property int horizontalSpacing: 15
                         property int verticalSpacing: 12
 
             },
             Rectangle { property string imgSource: "images/pingpong-ball.png";
                         property string imgName:  "Pingpong Ball";
-                        property double weight: 2.4
+                        property double weight: 2
                         property double density: 0.1
                         property int horizontalSpacing: 20
                         property int verticalSpacing: 10
@@ -30,14 +30,14 @@ import QtQuick 2.0
             },
             Rectangle { property string imgSource: "images/gold-nugget.png";
                         property string imgName:  "Gold Nugget";
-                        property double weight: 500.00
-                        property double density: 19.30
+                        property double weight: 90.00
+                        property double density: 15
                         property int horizontalSpacing: 20
                         property int verticalSpacing: 7
             },
             Rectangle { property string imgSource: "images/egg.png";
                         property string imgName:  "Egg";
-                        property double weight: 58
+                        property double weight: 55
                         property double density: 1.1
                         property int horizontalSpacing: 40
                         property int verticalSpacing: 5
@@ -66,8 +66,8 @@ import QtQuick 2.0
             },
             Rectangle { property string imgSource: "images/coin.png";
                         property string imgName:  "coin";
-                        property double weight: 2.5
-                        property double density: 7.18
+                        property double weight: 5
+                        property double density: 5
                         property int horizontalSpacing: 10
                         property int verticalSpacing: 5
             },

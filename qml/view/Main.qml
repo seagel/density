@@ -122,7 +122,7 @@ Item {
 
             Text {
                 id : nextText
-                text : "reset"
+                text : "Reset"
                 font.bold: true
                 anchors.fill : parent
                 anchors.centerIn: parent
@@ -136,8 +136,8 @@ Item {
                 id : buttonMouseArea
                 anchors.fill: parent
                 onClicked : {
-                    if(nextText.text == "next") {
-                        nextText.text = "reset"
+                    if(nextText.text == "Next") {
+                        nextText.text = "Reset"
                         showWeightVolumeExperiment(true)
                     }else{
                         reset(true)
@@ -191,10 +191,10 @@ Item {
     function showDensityExperiment(force) {
         weightArea.visible = false
         volArea.visible = false
-        densityArea.reset()
+        densityArea.reset(force)
         densityArea.visible = true
         densityArea.show()
-        nextText.text = "next"
+        nextText.text = "Next"
 
         if(activeImageObject !== null) {
             densityArea.cellIndex = activeImageObject.getCellNumber()
@@ -210,6 +210,7 @@ Item {
         volArea.reset()
         weightArea.visible = true
         volArea.visible = true
+        densityArea.reset(true)
         densityArea.visible = false
         densityArea.hide()
         formulaArea.reset()

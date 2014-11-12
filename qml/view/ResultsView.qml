@@ -12,8 +12,9 @@ Item {
        anchors.fill : resultsTable
 
        TableViewColumn{ role: "objectName"  ; title: "Object Name" ; width: resultsTable.width/4; }
-       TableViewColumn{ role: "liquidType" ; title: "Liquid Type" ; width: resultsTable.width/4 }
-       TableViewColumn{ role: "liquidDensity" ; title: "Liquid Density" ; width: resultsTable.width/4 }
+       TableViewColumn{ role: "objectDensity"  ; title: "ρ(Object)" ; width: resultsTable.width/6; }
+       TableViewColumn{ role: "liquidType" ; title: "Liquid Type" ; width: resultsTable.width/5 }
+       TableViewColumn{ role: "liquidDensity" ; title: "ρ(Liquid)" ; width: resultsTable.width/6 }
        TableViewColumn{
            role: "observation"
            title: "Observation"
@@ -23,7 +24,7 @@ Item {
        model: resultsModel
     }
 
-    function addRow(objectName, liquidType, liquidDensity, observation) {
+    function addRow(objectName, objectDensity, liquidType, liquidDensity, observation) {
         for( var index = 0 ;  index < resultsModel.count; index++ ) {
             var row = resultsModel.get(index)
             if(row.objectName === objectName && row.liquidType === liquidType && row.observation === observation) {
@@ -31,7 +32,7 @@ Item {
             }
         }
 
-        resultsModel.append({ objectName: objectName , liquidType: liquidType, liquidDensity : liquidDensity, observation: observation})
+        resultsModel.append({ objectName: objectName , objectDensity: objectDensity, liquidType: liquidType, liquidDensity : liquidDensity, observation: observation})
     }
 
     function reset() {

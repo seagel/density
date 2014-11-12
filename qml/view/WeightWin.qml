@@ -47,13 +47,6 @@ Item {
         }
 
         Text {
-            id : wightUnit
-            text: "Grams"
-            anchors.bottom: weightText.top
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        Text {
             id : weightText
             width: weighingScaleArea.width
             height: weighingScaleArea.height/5

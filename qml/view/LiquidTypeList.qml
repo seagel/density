@@ -11,17 +11,17 @@ Item {
         Rectangle { property string recName: "Oil"
                     property string recColor :  "yellow"
                     property double recOpacity: 1
-                    property double recDensity: 1.6
+                    property double recDensity: 0.84
         },
-        Rectangle { property string recName: "Petrol"
+        Rectangle { property string recName: "Honey"
                     property string recColor :  "gold"
                     property double recOpacity: 1
-                    property double recDensity: 1
+                    property double recDensity: 1.42
         },
-        Rectangle { property string recName: "Sea Water"
+        Rectangle { property string recName: "Salt Water"
                     property string recColor :  "slateblue"
                     property double recOpacity: 1
-                    property double recDensity: 1.025
+                    property double recDensity: 1.2
         },
         Rectangle { property string recName: "Corn Syrup"
                     property string recColor :  "teal"
