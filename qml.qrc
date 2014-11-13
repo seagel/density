@@ -26,5 +26,7 @@
         <file>QML/view/images/weighing_scale1.png</file>
         <file>QML/view/images/wooden-block.png</file>
         <file>main.cpp</file>
+        <file>QML/view/Note.qml</file>
+        <file>QML/view/images/note.png</file>
     </qresource>
 </RCC>

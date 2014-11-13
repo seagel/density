@@ -9,7 +9,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: "#49BAB6"
+        color: "#55ADAB"
         z:0
     }
 
@@ -17,6 +17,7 @@ Item {
     property int secondRowHeight: height/5
     property int thirdRowHeight: (height - firstRowHeight - secondRowHeight)*0.8
     property int fourthRowHeight: height - firstRowHeight - secondRowHeight - thirdRowHeight
+    property Note note
     property ObjectCollectionWin objGrid
 
     ObjectList{
@@ -37,7 +38,7 @@ Item {
             }
 
             if( dropCatched === false && drag.source !== null) {
-                reset(true)
+                resetAll(true)
             }
             dropCatched = false
         }
@@ -55,6 +56,33 @@ Item {
 
             Component.onCompleted:
                 reCreateGridObject(-1)
+        }
+
+        Item {
+            id : noteObject
+            width : 200
+            height : 100
+            anchors {
+                top : objectArea.bottom
+                left : objectArea.left
+                leftMargin: -10
+                topMargin: -5
+            }
+
+            Component.onCompleted:
+                showNote()
+
+            function showNote() {
+                note = Qt.createQmlObject(
+                    "Note{ \n" +
+                    "rotation : 200\n" +
+                    "textTopMargin: 5\n" +
+                    "textLeftMargin: 50\n" +
+                    "textWidth: 100\n" +
+                    "textHeight: 100\n" +
+                    "anchors.fill: parent\n" +
+                    "text : \"Drag an object\"}\n" , noteObject, "note")
+            }
         }
 
         FormulaWin {
@@ -81,6 +109,30 @@ Item {
             }
         }
 
+        Item {
+            id : noteWeight
+            width : 150
+            height : 200
+            anchors {
+                bottom : weightArea.bottom
+                left : weightArea.right
+                leftMargin: -30
+            }
+
+            function showNote() {
+                note = Qt.createQmlObject(
+                        "Note{ \n" +
+                        "rotation : 100\n" +
+                        "textTopMargin: 50\n" +
+                        "textLeftMargin: 40\n" +
+                        "textWidth: 100\n" +
+                        "textHeight: 100\n" +
+                        "anchors.fill: parent\n" +
+                        "text : \" Drop the object to measure the mass\"}\n" , noteWeight, "note")
+            }
+        }
+
+
         VolumeWin {
             id: volArea
             height: thirdRowHeight
@@ -91,6 +143,30 @@ Item {
                 leftMargin: width/2
             }
         }
+
+        Item {
+            id : noteVolume
+            width : 160
+            height : 160
+            anchors {
+                bottom : volArea.bottom
+                left : volArea.right
+                leftMargin: -50
+            }
+
+            function showNote() {
+                note = Qt.createQmlObject(
+                    "Note{ \n" +
+                    "rotation : 100\n" +
+                    "textTopMargin: 30\n" +
+                    "textLeftMargin: 45\n" +
+                    "textWidth: 100\n" +
+                    "textHeight: 100\n" +
+                    "anchors.fill: parent\n" +
+                    "text : \" Drag and drop the object to record the volume\"}\n" , noteVolume, "note")
+            }
+        }
+
 
         DensityWin {
             id: densityArea
@@ -139,8 +215,11 @@ Item {
                     if(nextText.text == "Next") {
                         nextText.text = "Reset"
                         showWeightVolumeExperiment(true)
+                        if( note !== null)
+                            note.destroy()
+                        noteObject.showNote()
                     }else{
-                        reset(true)
+                        resetAll(true)
                     }
                 }
             }
@@ -151,6 +230,7 @@ Item {
     function setImageObject(imageObj) {
         dropCatched = true
         activeImageObject = imageObj
+        showNote()
     }
 
     function setVolume(volume) {
@@ -180,15 +260,22 @@ Item {
         "}\n", mainWin, "objArea")
     }
 
-    function reset(force) {
+    function resetAll(force) {
         if(densityArea.visible == true) {
             showDensityExperiment(force)
         }else{
             showWeightVolumeExperiment(force)
         }
+        if( note !== null)
+            note.destroy()
+        noteObject.showNote()
     }
 
     function showDensityExperiment(force) {
+        if(note !== null)
+            note.destroy()
+        noteObject.showNote()
+
         weightArea.visible = false
         volArea.visible = false
         densityArea.reset(force)
@@ -219,6 +306,38 @@ Item {
             reCreateGridObject(-1)
 
         activeImageObject = null
+    }
+
+    function showNote() {
+        if( note !== null)
+            note.destroy()
+        note = null
+
+        if(activeImageObject !== null) {
+            var state = activeImageObject.getState()
+            if(state == "inGrid") {
+                noteWeight.showNote()
+            } else if(state == "inWeight") {
+                if(Number(formulaArea.getVolume()) > 0) {
+                    note = formulaArea.getNote()
+                }else{
+                    noteVolume.showNote()
+                }
+            } else if(state == "inVolume") {
+                if(Number(formulaArea.getWeight()) > 0) {
+                    note = formulaArea.getNote()
+                }else{
+                    noteWeight.showNote()
+                }
+            } else if(state == "inBeaker") {
+                note = densityArea.getNote()
+            }
+        }else{
+            if(densityArea.visible === true)
+                note = densityArea.getNote()
+            else
+                noteWeight.showNote()
+        }
     }
 
 }

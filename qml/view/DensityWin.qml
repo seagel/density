@@ -6,6 +6,7 @@ Item {
         property ObjImage droppedObject
         property double beakerPointHt : (densityExperimentArea.height / 1.20) / 50
         property double liquidLevel : 30 * beakerPointHt
+        property Note note: null
 
         Image {
             id: densityExperimentArea
@@ -18,6 +19,31 @@ Item {
                 leftMargin: width * 0.1
             }
         }
+
+        Item {
+            id : noteBeaker
+            width : 200
+            height : 100
+            anchors {
+                top : densityExperimentArea.bottom
+                left : densityExperimentArea.left
+                topMargin: -30
+                leftMargin: 40
+            }
+
+            function showNote() {
+                note = Qt.createQmlObject(
+                        "Note{ \n" +
+                        "rotation : 180\n" +
+                        "textTopMargin: 10\n" +
+                        "textLeftMargin: 40\n" +
+                        "textWidth: 100\n" +
+                        "textHeight: 100\n" +
+                        "anchors.fill: parent\n" +
+                        "text : \"Drop the object into beaker.\"}\n" , noteBeaker, "note")
+            }
+        }
+
 
         Item {
             id: liquidTypeArea
@@ -99,6 +125,31 @@ Item {
                 }
             }
         }
+
+        Item {
+            id : noteLiquid
+            width : 200
+            height : 100
+            anchors {
+                top : liquidTypeArea.bottom
+                left : liquidTypeArea.left
+                topMargin: -70
+                leftMargin: -30
+            }
+
+            function showNote() {
+                note = Qt.createQmlObject(
+                        "Note{ \n" +
+                        "rotation : 180\n" +
+                        "textTopMargin: 10\n" +
+                        "textLeftMargin: 40\n" +
+                        "textWidth: 100\n" +
+                        "textHeight: 100\n" +
+                        "anchors.fill: parent\n" +
+                        "text : \"Choose another liquid.\"}\n" , noteLiquid, "note")
+            }
+        }
+
 
         ResultsView {
             id : resultsGrid
@@ -200,5 +251,18 @@ Item {
             }else{
                 return liquidArea.height + objectFloatHt
             }
+        }
+
+        function getNote() {
+            if(note !== null) {
+                note.destroy()
+                note = null
+            }
+            if(droppedObject === null)
+                noteBeaker.showNote()
+            else
+                noteLiquid.showNote()
+
+            return note
         }
 }

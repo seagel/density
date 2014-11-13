@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.2
 Item {
     id: formulaArea
     property int textHeight: height/6
+    property Note note: null
 
     Rectangle {
         id : topEmptyArea
@@ -89,6 +90,7 @@ Item {
         id: densityInput
         width: densityText.width - getTextWidth("gm/c")
         height: densityText.height
+        property int numTrails: 0
         anchors {
             left : densityText.left
             top : densityText.bottom
@@ -114,14 +116,61 @@ Item {
         }
         maximumLength: 9
 
-        onTextChanged : {
-            if(densityMatching()) {
-                showDensityExperiment(true)
-                readOnly = true
+//        Keys.onEnterPressed: {
+//        }
+        Keys.onReturnPressed: {
+            if(Number(densityInput.text) > 0 && Number(massResultText.text) > 0 && Number(volumeResultText.text) > 0) {
+                numTrails++
+                if(numTrails <= 3) {
+                    if(densityMatching()) {
+                        showDensityExperiment(true)
+                        readOnly = true
+                        numTrails = 0
+                    }else{
+                        var msg = "Try again"
+                        if(numTrails === 2)
+                            msg += ". Last chance."
+                        else if(numTrails === 3) {
+                            numTrails = 0
+                            parentReset()
+                        }
+
+                        noteCalulcateDensity.showNote(msg)
+                    }
+                }
             }
         }
 
     }
+
+    Item {
+        id : noteCalulcateDensity
+        property string initialComment: "Calculate the density. Press Enter key."
+        width : 170
+        height : 100
+        anchors {
+            top : densityInput.bottom
+            left : densityInput.left
+            leftMargin: -30
+        }
+
+        function showNote(text) {
+            if(note !== null)
+                note.text =text
+            else {
+                note = Qt.createQmlObject(
+                    "Note{ \n" +
+                    "rotation : 180\n" +
+                    "textTopMargin: 10\n" +
+                    "textLeftMargin: 30\n" +
+                    "textWidth: 100\n" +
+                    "textHeight: 100\n" +
+                    "anchors.fill: parent\n" +
+                    "text : \""+ text + "\"}\n" , noteCalulcateDensity, "note")
+            }
+        }
+    }
+
 
     Text {
         id : densityResultUnits
@@ -243,7 +292,29 @@ Item {
         return false
     }
 
+    function getWeight() {
+        return massResultText.text
+    }
+
+    function getVolume() {
+       return volumeResultText.text
+    }
+
+    function getDensity() {
+        return densityInput.text
+    }
+
+    function getNote() {
+        noteCalulcateDensity.showNote(noteCalulcateDensity.initialComment)
+        return note
+    }
+
+    function parentReset() {
+        resetAll(true)
+    }
+
     function reset() {
+        densityInput.numTrails = 0
         densityInput.text = "0"
         massResultText.text = "0"
         volumeResultText.text = "0"

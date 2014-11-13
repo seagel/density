@@ -49,6 +49,7 @@ Item {
                 if(objImgId.state == "inGrid") {
                     parentReset(false)
                 }
+                objectPressed()
             }
 
             onReleased: {
@@ -178,8 +179,16 @@ Item {
         return density
     }
 
+    function getState() {
+        return state
+    }
+
     function parentReset(force) {
         objImgId.parent.parentReset(force)
+    }
+
+    function objectPressed() {
+        parent.objectPressed()
     }
 
     function reset() {

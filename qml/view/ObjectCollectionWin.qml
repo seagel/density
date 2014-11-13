@@ -55,9 +55,17 @@ Item {
                                                     "objImgId"
                                                    );
         }
+        function objectPressed() {
+            parent.objectPressed()
+        }
+
     }
 
     function parentReset(force) {
-        reset(force)
+        resetAll(force)
     }
+    function objectPressed() {
+        showNote()
+    }
+
 }
