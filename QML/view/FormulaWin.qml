@@ -284,8 +284,9 @@ Item {
     function densityMatching() {
         if(Number(densityInput.text) > 0 && Number(massResultText.text) > 0 && Number(volumeResultText.text) > 0) {
             var calculatedDensity = Number(massResultText.text)/Number(volumeResultText.text)
-            calculatedDensity = Math.floor((calculatedDensity * 10 * 10))/100
-            var inputDensity = Number(densityInput.text)
+            calculatedDensity = Math.round(Math.floor(calculatedDensity * 100)/10)/10
+            var inputDensity = Number(densityInput.text);
+            inputDensity = Math.round(Math.floor(inputDensity * 100)/10)/10
             if(inputDensity == calculatedDensity)
                 return true
         }
