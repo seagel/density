@@ -23,10 +23,10 @@ Item {
                     property double recOpacity: 1
                     property double recDensity: 1.2
         },
-        Rectangle { property string recName: "Corn Syrup"
-                    property string recColor :  "teal"
+        Rectangle { property string recName: "Mercury"
+                    property string recColor :  "gray"
                     property double recOpacity: 1
-                    property double recDensity: 1.33
+                    property double recDensity: 13.6
         }
     ]
 

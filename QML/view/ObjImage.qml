@@ -74,8 +74,8 @@ Item {
 
             Text {
                 id:textId
-                x: imgText.mouseX + 10
-                y: imgText.mouseY + 5
+                x: imgText.mouseX - 2 * imgName.length
+                y: imgText.mouseY + 30
                 z: 100
                 visible: imgText.textVisible
                 text : imgName
